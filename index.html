@@ -106,24 +106,39 @@
                         <p><i class="fas fa-phone"></i> +91 8429637626</p>
                         <p><i class="fas fa-envelope"></i> cybersquard@duck.com</p>
                     </div>
-                    <div class="contact-form">
-                        <form id="form">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" placeholder="Enter your message"
-                                    required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" id="submit" class="btn">Send Message</button>
-                            </div>
+                    <section id="contact">
+  <div class="container">
+    <h3>Contact Me</h3>
+    <div class="contact-info">
+      <div class="contact-details">
+        <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+        <p><i class="fas fa-phone"></i> +91 8429637626</p>
+        <p><i class="fas fa-envelope"></i> cybersquard@duck.com</p>
+      </div>
+      <div class="contact-form">
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="from_name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="reply_to" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea name="message" required></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn">Send Message</button>
+          </div>
+        </form>
+        <div id="toast" style="display:none; margin-top: 15px; color: green;">Message sent successfully!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
                         </form>
                     </div>
                 </div>
@@ -144,28 +159,26 @@
             </div>
         </div>
     </footer>
-    <script>
-    (function () {
-      emailjs.init("zbdu6gmeHeLlloj9f");
-    })();
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("zbdu6gmeHeLlloj9f"); // ✅ Your EmailJS Public Key
+  })();
 
-    const form = document.getElementById("contact-form");
-    const toast = document.getElementById("toast");
+  document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      emailjs.sendForm("service_kmv779h", "template_6tls0ks", this)
-        .then(() => {
-          toast.style.display = "block";
-          setTimeout(() => toast.style.display = "none", 3000);
-          form.reset();
-        });
-    });
+    emailjs.sendForm("service_kmv779h", "template_6tls0ks", this)
+      .then(function () {
+        document.getElementById("toast").style.display = "block";
+        setTimeout(() => document.getElementById("toast").style.display = "none", 3000);
+        document.getElementById("contact-form").reset();
+      }, function (error) {
+        alert("FAILED... " + JSON.stringify(error));
+      });
+  });
+</script>
 
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-    });
-  </script>
 </body>
 
 </html>
