@@ -144,22 +144,28 @@
             </div>
         </div>
     </footer>
-    <script https://smtpjs.com/v3/smtp.js></script>
     <script>
-        function sendEmail(){
-        Email.send({
-            Host: "smtp.elasticemail.com",
-            Username: "iamcoderpandeyjii@gmail.com",
-            Password: "",
-            To: 'iamcoderpandeyjii@gmail.com',
-            From: document.getElementById("email").value,
-            Subject: "This is the subject",
-            Body: "And this is the body"
-        }).then(
-            message => alert("message sent succesfully")
-        );
-    }
-    </script>
+    (function () {
+      emailjs.init("zbdu6gmeHeLlloj9f");
+    })();
+
+    const form = document.getElementById("contact-form");
+    const toast = document.getElementById("toast");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      emailjs.sendForm("service_kmv779h", "template_6tls0ks", this)
+        .then(() => {
+          toast.style.display = "block";
+          setTimeout(() => toast.style.display = "none", 3000);
+          form.reset();
+        });
+    });
+
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+  </script>
 </body>
 
 </html>
